@@ -1,4 +1,7 @@
 const app = require('express')();
+const middlewares = require('./middlewares');
+
+const PORT = 3001;
 
 const users = [
   {
@@ -24,5 +27,9 @@ app.get('/user/:name', (req, res, next) => {
   return res.status(200).json({ commentsUser: user.comments });
 });
 
+app.get('/:operacao/:numero1/:numero2', (req, res, next) => { 
+  middlewares[req.params.operacao](req, res, next);
+});
 
-app.listen(3000, () => console.log('Estou rodando na porta 3000'));
+
+app.listen(PORT, () => console.log(`Estou rodando na porta ${ PORT }`));
